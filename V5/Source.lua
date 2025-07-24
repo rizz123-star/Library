@@ -3,10 +3,12 @@ local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local HttpService = game:GetService("HttpService")
 local RunService = game:GetService("RunService")
-local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
+
 local Player = Players.LocalPlayer
 local PlayerMouse = Player:GetMouse()
+
+local CoreGui = (gethui and gethui()) or game:GetService("CoreGui");
 
 local redzlib = {
 	Themes = {
@@ -1093,7 +1095,7 @@ local GetFlag, SetFlag, CheckFlag do
 end
 
 local ScreenGui = Create("ScreenGui", CoreGui, {
-	Name = "redz Library V5",
+	Name = "redz-library-v5",
 }, {
 	Create("UIScale", {
 		Scale = UIScale,
@@ -2208,7 +2210,7 @@ function redzlib:MakeWindow(Configs)
 				end
 				
 				local function CallbackSelected()
-					SetFlag(Flag, MultiSelect and Selected or tostring(Selected))
+					SetFlag(Flag, if MultiSelect then Selected else tostring(Selected or "..."))
 					Funcs:FireCallback(Callback, Selected)
 				end
 				
