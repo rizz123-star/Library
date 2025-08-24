@@ -38,7 +38,8 @@ local Window = Library:MakeWindow({
     - Play: (self: Notification) -> (nil)
     - IsPlaying: boolean
 - GetDialogCreator: (self: Window) -> DialogCreator
-  - Create: (self: DialogCreator, Name: string, Callback: function | "CLOSE_ACTION") -> DialogOption
+  - NewOptions: (self: DialogCreator, { { Name: string, Callback: function | "CLOSE_ACTION", XAlignment: "Left" | "Right "} }) -> { DialogOption }
+  - NewOption: (self: DialogCreator, Name: string, Callback: function | "CLOSE_ACTION") -> DialogOption
     - Right: (self: DialogOption) -> DialogOption
     - Left: (self: DialogOption) -> DialogOption
     - SetName: (self: DialogOption, Name: string) -> (nil)
@@ -52,6 +53,7 @@ local Window = Library:MakeWindow({
     - SetTitle: (self: Dialog, Title: string) -> (nil)
     - SetContent: (self: Dialog, Content: string) -> (nil)
     - AddOptions: (self: Dialog, { DialogOption }) -> (nil)
+    - RemoveOption: (self: Dialog, Option: DialogOption) -> boolean
 - MakeTab: (self: Window, Configs: { Title: string, Icon: string? }) -> Tab
 - SelectTab: (self: Window, Tab: Tab | number) -> (nil)
 - SetUIScale: (self: Window | Library, Value: number) -> (nil)
@@ -100,34 +102,21 @@ local Tab = Window:MakeTab({ "Cool Tab", "Home" })
 ```lua
 local DialogCreator = Window:GetDialogCreator()
 
-local CloseOption = DialogCreator:NewOption("Close", "CLOSE_ACTION")
-local WaitOption = DialogCreator:NewOption("Wait", function(self) self:Close() print("Hi!") end)
-
 DialogCreator:Create({
   Title = "Hello!",
   Content = "do you like Coffee?",
-  Options = { CloseOption, WaitOption }
-})
-```
-Advanced Example
-```lua
-local DialogCreator = Window:GetDialogCreator()
-
-local CloseOption = DialogCreator:NewOption("Close", "CLOSE_ACTION")
-local WaitOption = DialogCreator:NewOption("Wait", function(self) self:Close() print("Hi!") end)
-
-local Dialog = DialogCreator:Create({
-  Title = "Hello!",
-  Content = "do you like Coffee?",
-  Options = { CloseOption }
-})
-
-Dialog:AddOptions({ WaitOption })
-local Title = Dialog:GetTitle()
-
-for index = 1, 3 do
-  Dialog:SetTitle(`{Title} {index}`)
-  Dialog:Display()
-  Dialog:Wait()
-end
+  Options = DialogCreator:NewOptions({
+    {
+      Name = "Close",
+      Callback = "CLOSE_ACTION"
+    },
+    {
+      Name = "Wait",
+      Callback = function(self)
+        self:Close()
+        print("Hi!")
+      end)
+    }
+  }
+}):Display()
 ```
