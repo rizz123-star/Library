@@ -38,13 +38,14 @@ local Window = Library:MakeWindow({
     - Play: (self: Notification) -> (nil)
     - IsPlaying: boolean
 - GetDialogCreator: (self: Window) -> DialogCreator
-  - NewOptions: (self: DialogCreator, { { Name: string, Callback: function | "CLOSE_ACTION", XAlignment: "Left" | "Right "} }) -> { DialogOption }
+  - NewOptions: (self: DialogCreator, { { Name: string, Callback: function | "CLOSE_ACTION", XAlignment: "Left" | "Right "} }) -> DialogOption }
   - NewOption: (self: DialogCreator, Name: string, Callback: function | "CLOSE_ACTION") -> DialogOption
     - Right: (self: DialogOption) -> DialogOption
     - Left: (self: DialogOption) -> DialogOption
     - SetName: (self: DialogOption, Name: string) -> (nil)
     - GetName: (self: DialogOption) -> string
   - Create: (self: DialogCreator, Configs: { Title: string, Content: string?, Options: { DialogOption } }) -> Dialog
+    - IsEnabled: boolean
     - Display: (self: Dialog) -> (nil)
     - Close: (self: Dialog) -> (nil)
     - Wait: (self: Dialog) -> (nil)
@@ -55,6 +56,11 @@ local Window = Library:MakeWindow({
     - AddOptions: (self: Dialog, { DialogOption }) -> (nil)
     - RemoveOption: (self: Dialog, Option: DialogOption) -> boolean
 - MakeTab: (self: Window, Configs: { Title: string, Icon: string? }) -> Tab
+  - IsEnabled: boolean
+  - Title: string
+  - Icon: string
+  - Select: (self: Tab) -> (nil)
+- GetCallbackOption: (self: Window) -> Option?
 - SelectTab: (self: Window, Tab: Tab | number) -> (nil)
 - SetUIScale: (self: Window | Library, Value: number) -> (nil)
 - SetTitle: (self: Window, Title: string) -> (nil)
@@ -62,6 +68,13 @@ local Window = Library:MakeWindow({
 - GetTitle: (self: Window) -> string
 - GetSubTitle: (self: Window) -> string
 - MinimizeButton: (self: Window) -> (nil)
+- IsValidTheme: (self: Library, ThemeName: string) -> boolean
+- SetTheme: (self: Library, ThemeName: string) -> (nil)
+- GetTheme: (self: Library, ThemeName: string?) -> LibraryTheme
+  - Name: string
+- GetThemes: (self: Library) -> { string }
+- GetIconByName: (self: Library, IconName: string) -> string?
+- Destroy: (self: Library | Window) -> (nil)
 
 ### Minimizer
 ```lua
@@ -115,8 +128,55 @@ DialogCreator:Create({
       Callback = function(self)
         self:Close()
         print("Hi!")
-      end)
+      end
     }
-  }
+  })
 }):Display()
+```
+
+### Options API
+- Builder: { Title: string, Description: string? }
+all Options
+- SetTitle: (self: Option, Title: string) -> Option
+- SetDescription: (self: Option, Description: string) -> Option
+- SetVisible: (self: Option, Value: boolean) -> (nil)
+- Destroy: (self: Option) -> (nil)
+- AddCallback: (self: Option, Callback: function) -> Option
+- Title: string
+- Description: string
+- Kind: string
+create
+- AddToggle: (self: Tab, Configs: Builder & { Default: boolean?, Callback: function?, Flag: string? }) -> Toggle
+  - Value: boolean
+  - SetValue: (self: Toggle, Value: boolean) -> (nil)
+- AddSlider: (self: Tab, Configs: Builder & { Max: number, Min: number, Increment: number?, Callback: function?, Flag: string? }) -> Slider
+  - Value: number
+  - Min: number
+  - Max: number
+  - Increment: number
+  - SetValue: (self: Slider, Value: number) -> Slider
+- AddButton: (self: Tab, Configs: Builder & { Callback: function?, Debounce: number? }) -> Button
+- AddSection: (self: Tab, Title: string?) -> Section
+- AddDropdown: (self: Tab, Configs: Builder & { Options: { string? }, Default: string | number | { string? | number? }, MultiSelect: boolean?, Callback: function?, Flag: string? }) -> Dropdown
+  - Remove: (self: Dropdown, Option: string) -> (nil)
+  - Add: (self: Dropdown, ...: string) -> (nil)
+  - NewOptions: (self: Dropdown, { string? | number? }) -> (nil)
+  - SetEnabled: (self: Dropdown, { string? | number? }) -> (nil)
+  - Clear: (self: Dropdown) -> (nil)
+- AddTextBox: (self: Tab, Configs: Builder & { ClearTextOnFocus: boolean?, Callback: function?, Flag: string? )) -> TextBox
+  - CaptureFocus: (self: TextBox) -> TextBox
+  - SetText: (self: TextBox, Text: string) -> TextBox
+  - SetTextFilter: (self: TextBox, Filter: function?) -> TextBox
+  - SetPlaceholderText: (self: TextBox, Text: string) -> TextBox
+  - Clear: (self: TextBox) -> TextBox
+### Creating Options
+- Toggle
+```lua
+Tab:AddToggle({
+  Name = "Toggle",
+  Default = false,
+  Callback = function(Value)
+    Window:GetCallbackOption():SetTitle(`Toggle: {tostring(Value)}`)
+  end
+})
 ```
