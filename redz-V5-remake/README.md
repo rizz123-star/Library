@@ -136,7 +136,7 @@ DialogCreator:Create({
 
 ### Options API
 - Builder: { Title: string, Description: string? }
-all Options
+> Options Properties & Functions
 - SetTitle: (self: Option, Title: string) -> Option
 - SetDescription: (self: Option, Description: string) -> Option
 - SetVisible: (self: Option, Value: boolean) -> (nil)
@@ -145,7 +145,7 @@ all Options
 - Title: string
 - Description: string
 - Kind: string
-create
+> Create Options
 - AddToggle: (self: Tab, Configs: Builder & { Default: boolean?, Callback: function?, Flag: string? }) -> Toggle
   - Value: boolean
   - SetValue: (self: Toggle, Value: boolean) -> (nil)
