@@ -1,9 +1,9 @@
 # ✨ Wand UI (Redz Library V5 Remake)
 
 ## 📌 About
-**Wand UI** is a rebuilt and optimized version of **Redz Library V5**.
-It uses the same UI style as the original, with some improvements and refinements.
-The reason the UI is named **Wand** is that it should be the name of the next generation of **redz Hub** UIs
+- **Wand UI** is a rebuilt and optimized version of **Redz Library V5**.
+- It uses the same UI style as the original, with some improvements and refinements.
+- The reason the UI is named **Wand** is that it should be the name of the next generation of **redz Hub** UIs
 
 - 🔹 Made by **real_redz**  
 - 🔹 Designed mainly for use in **Redz Hub** scripts  
