@@ -1,8 +1,9 @@
 # ✨ Wand UI (Redz Library V5 Remake)
 
 ## 📌 About
-**Wand UI** is a rebuilt and optimized version of **Redz Library V5**.  
-It uses the same UI style as the original, with some improvements and refinements.  
+**Wand UI** is a rebuilt and optimized version of **Redz Library V5**.
+It uses the same UI style as the original, with some improvements and refinements.
+The reason the UI is named **Wand** is that it should be the name of the next generation of **redz Hub** UIs
 
 - 🔹 Made by **real_redz**  
 - 🔹 Designed mainly for use in **Redz Hub** scripts  
@@ -63,6 +64,8 @@ local Window = Library:MakeWindow({
 - GetCallbackOption: (self: Window) -> Option?
 - SelectTab: (self: Window, Tab: Tab | number) -> (nil)
 - SetUIScale: (self: Window | Library, Value: number) -> (nil)
+- GetMaxScale: (self: Library) -> number
+- GetMinScale: (self: Library) -> number
 - SetTitle: (self: Window, Title: string) -> (nil)
 - SetSubTitle: (self: Window, SubTitle: string) -> (nil)
 - GetTitle: (self: Window) -> string
@@ -90,11 +93,11 @@ local MobileButton = Minimizer:CreateMobileMinimizer({
 
 ### UI Scale
 - Min Scale: ``0.6``
-- Max Scale: ``2.0``
+- Max Scale: ``1.6``
 - Default Scale: ``1.0``
 
 ```lua
-local randomScale = Random.new():NextNumber(0.6, 2)
+local randomScale = Random.new():NextNumber(Library:GetMinScale(), Library:GetMaxScale())
 Library:SetUIScale(randomScale)
 ```
 
@@ -157,26 +160,47 @@ DialogCreator:Create({
   - SetValue: (self: Slider, Value: number) -> Slider
 - AddButton: (self: Tab, Configs: Builder & { Callback: function?, Debounce: number? }) -> Button
 - AddSection: (self: Tab, Title: string?) -> Section
-- AddDropdown: (self: Tab, Configs: Builder & { Options: { string? }, Default: string | number | { string? | number? }, MultiSelect: boolean?, Callback: function?, Flag: string? }) -> Dropdown
+- AddDropdown: (self: Tab, Configs: Builder & { Options: { string? } | nil, Default: string | number | { string? | number? }, MultiSelect: boolean?, Callback: function?, Flag: string? }) -> Dropdown
   - Remove: (self: Dropdown, Option: string) -> (nil)
   - Add: (self: Dropdown, ...: string) -> (nil)
   - NewOptions: (self: Dropdown, { string? | number? }) -> (nil)
   - SetEnabled: (self: Dropdown, { string? | number? }) -> (nil)
   - Clear: (self: Dropdown) -> (nil)
-- AddTextBox: (self: Tab, Configs: Builder & { ClearTextOnFocus: boolean?, Callback: function?, Flag: string? )) -> TextBox
+  - Opened: boolean
+- AddTextBox: (self: Tab, Configs: Builder & { Placeholder: string?, ClearOnFocus: boolean?, Callback: function?, Flag: string? )) -> TextBox
   - CaptureFocus: (self: TextBox) -> TextBox
   - SetText: (self: TextBox, Text: string) -> TextBox
   - SetTextFilter: (self: TextBox, Filter: function?) -> TextBox
-  - SetPlaceholderText: (self: TextBox, Text: string) -> TextBox
+  - SetPlaceholder: (self: TextBox, Text: string) -> TextBox
   - Clear: (self: TextBox) -> TextBox
+- AddDiscordInvite: (self: Tab, Configs: Builder & { Banner: Image | Color3, Image: string, Invite: string, Members: number?, Online: number?) -> DiscordInvite
 ### Creating Options
-- Toggle
+#### Section
+
+```lua
+Tab:AddSection("Section")
+```
+
+#### Toggle
 ```lua
 Tab:AddToggle({
   Name = "Toggle",
   Default = false,
   Callback = function(Value)
-    Window:GetCallbackOption():SetTitle(`Toggle: {tostring(Value)}`)
+    
+  end
+})
+```
+#### Slider
+```lua
+Tab:AddSlider({
+  Name = "Cool Title",
+  Min = -5,
+  Max = 5,
+  Increment = 0.25,
+  Default = 0,
+  Callback = function(Value)
+    
   end
 })
 ```
