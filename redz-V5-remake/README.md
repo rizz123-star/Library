@@ -11,7 +11,7 @@
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Getting Starte
 To load **Wand UI**, simply run:
 ```lua
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Library/refs/heads/main/redz-V5-remake/main.luau"))()
@@ -74,16 +74,6 @@ local MobileButton = Minimizer:CreateMobileMinimizer({
 })
 ```
 
-### UI Scale
-- Min Scale: ``0.6``
-- Max Scale: ``1.6``
-- Default Scale: ``1.0``
-
-```lua
-local randomScale = Random.new():NextNumber(Library:GetMinScale(), Library:GetMaxScale())
-Library:SetUIScale(randomScale)
-```
-
 ### Creating a Tab
 Normal
 ```lua
@@ -116,8 +106,18 @@ Window:Dialog({
 })
 ```
 
+### Creating a Notification
+```lua
+Window:Notify({
+  Title = "Notification",
+  Content = "this is a Notification",
+  Image = "rbxassetid://10734953451",
+  Duration = 5
+})
+```
+
 ### Options API
-- Builder: { Title: string, Description: string? }
+- Builder: { (Title|Name): string, (Desc|Description): string? }
 > Options Properties & Functions
 - SetTitle: (self: Option, Title: string) -> Option
 - SetDescription: (self: Option, Description: string) -> Option
@@ -150,13 +150,14 @@ Window:Dialog({
 - AddTextBox: (self: Tab, Configs: Builder & { Placeholder: string?, ClearOnFocus: boolean?, Callback: function?, Flag: string? )) -> TextBox
   - CaptureFocus: (self: TextBox) -> TextBox
   - SetText: (self: TextBox, Text: string) -> TextBox
-  - SetTextFilter: (self: TextBox, Filter: function?) -> TextBox
+  - SetTextFilter: (self: TextBox, Filter: (text: string) -> string?) -> TextBox
   - SetPlaceholder: (self: TextBox, Text: string) -> TextBox
   - Clear: (self: TextBox) -> TextBox
 - AddDiscordInvite: (self: Tab, Configs: Builder & { Banner: Image | Color3, Image: string, Invite: string, Members: number?, Online: number?) -> DiscordInvite
-### Creating Options
-#### Section
 
+### Creating Options
+
+#### Section
 ```lua
 Tab:AddSection("Section")
 ```
@@ -171,6 +172,16 @@ Tab:AddToggle({
   end
 })
 ```
+
+#### Button
+```lua
+Tab:AddButton({
+  Name = "My Button",
+  Debounce = 0.5,
+  Callback = function()
+    
+  end
+})
 
 #### Slider
 ```lua
@@ -190,11 +201,82 @@ Tab:AddSlider({
 ```lua
 Tab:AddDropdown({
   Name = "Dropdown",
-  MultiSelect = false,
   Options = {"one", "two", "three", "four", "five"},
   Default = "one",
   Callback = function(Value)
     
+  end
+})
+```
+```lua
+Tab:AddDropdown({
+  Name = "Dropdown",
+  MultiSelect = true,
+  Options = {"one", "two", "three", "four", "five"},
+  Default = {"one", "four"},
+  Callback = function(Value)
+    
+  end
+})
+```
+
+#### TextBox
+```lua
+Tab:AddTextBox({
+  Name = "My TextBox",
+  Default "text",
+  Placeholder = "input text...",
+  ClearOnFocus = true,
+  Callback = function(Value)
+    
+  end
+})
+```
+
+#### Paragraph
+```lua
+Tab:AddParagraph("Paragraph", "This is a Paragraph\nSecond Line")
+```
+
+#### Discord Invite
+```lua
+MainTab:AddDiscordInvite({
+	Title = "redz Hub | Community",
+	Description = "A community for redz Hub Users -- official scripts, updates, and suport in one place.",
+	Banner = "rbxassetid://17382040552", -- You can put an RGB Color: Color3.fromRGB(233, 37, 69)
+	Logo = "rbxassetid://17382040552",
+	Invite = "https://discord.gg/redz-hub",
+	Members = 470000, -- Optional
+	Online = 20000, -- Optional
+})
+```
+
+### UI Scale
+- Min Scale: ``0.6``
+- Max Scale: ``1.6``
+- Default Scale: ``1.0``
+```lua
+Library:SetUIScale(1.0)
+```
+```lua
+print(`UI Max Scale is: {Library:GetMinScale()} and the minimum is: {Library:GetMaxScale()}`)
+```
+
+### Flags
+```lua
+Tab:AddToggle({
+  Name = "Cool Toggle",
+  Flag = "toggle_flag"
+})
+```
+```lua
+local ToggleValue = Window:GetFlag("toggle_flag") or false
+
+Tab:AddToggle({
+  Name = "Cool Toggle",
+  Default = ToggleValue,
+  Callback = function(Value)
+    Window:SetFlag("toggle_flag", Value)
   end
 })
 ```
