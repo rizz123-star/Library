@@ -343,6 +343,7 @@ return {
 	film = 10723374981,
 	filter = 10723375128,
 	fingerprint = 10723375250,
+	fish = 127664059821666,
 	flag = 10723375890,
 	flagoff = 10723375443,
 	flagtriangleleft = 10723375608,
