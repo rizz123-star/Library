@@ -36,9 +36,11 @@ local Window = Library:MakeWindow({
   - Title: string
   - Icon: string
   - Select: (self: Tab) -> (nil)
-- Notify: (self: Window, Configs: { Title: string, Content: string, Duration: number?, Image: string? ) -> Notification
-  - Close: (self: Notification, )
+- Notify: (self: Window, Configs: { Title: string, Content: string, Duration: number?, Image: string? } ) -> Notification
+  - Close: (self: Notification)
   - Closed: boolean
+- NewNotifyGroup: (self: Window, Configs: { Title: string?, Content: string?, Duration: number?, Image: string? }) -> NotificationGroup
+  - Notify: (self: Window, Configs: { Title: string?, Content: string?, Duration: number?, Image: string? }) -> Notification
 - Dialog: (self: Window, Configs: { Title: string, Content: string, Options: { { Name: string, Callback: function? } }) -> Dialog
   - Close: (self: Dialog) -> (nil)
   - NewOption: (self: Dialog, Configs: { Name: string, Callback: function? }) -> (nil)
