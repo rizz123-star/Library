@@ -184,6 +184,7 @@ Tab:AddButton({
     
   end
 })
+```
 
 #### Slider
 ```lua
