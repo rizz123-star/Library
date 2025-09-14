@@ -174,14 +174,14 @@ if makefolder then
 local w=u:split"/"
 w[#w]=nil
 
-local x=table.concat(folderPath,"/")
+local x=table.concat(w,"/")
 
 if x~=""and(isfolder==nil or not isfolder(x))then
-pcall(makefolder,x)
+makefolder(x)
 end
 end
 
-writefile(file,v)end
+writefile(u,v)end
 
 
 local v=false
