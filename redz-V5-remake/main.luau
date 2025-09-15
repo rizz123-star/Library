@@ -30,16 +30,16 @@ __index=function(b,c)
 rawset(b,c,a(game:GetService(c)))
 return rawget(b,c)
 end
-})local _=
+})
 
-b.MarketplaceService
+local c=b.MarketplaceService
 local d=b.UserInputService
 local e=b.TweenService
 local f=b.HttpService
 local g=b.RunService
-local h=b.Players local _=
+local h=b.Players
 
-g.Heartbeat
+local i=g.Heartbeat
 
 local j=h.LocalPlayer
 local k=j:GetMouse()
@@ -372,7 +372,7 @@ end
 local D
 
 function y:Draggable(E,F,G)
-
+local H,I,J,K
 local L=F or 0.28
 local M=0
 local N local O=function(
@@ -1190,9 +1190,9 @@ ListLayout={
 Padding=UDim.new(0,4)
 }
 }
-})local _=
+})
 
-ap.SearchIcon
+local ar=ap.SearchIcon
 local as=ap.SearchBox
 
 local at=130
@@ -1243,8 +1243,8 @@ local aR=aJ(aL)
 local aS=aP.X/aQ
 local aT=aP.Y/aQ
 local aU=aN.X/aQ
-local aV=aN.Y/aQ local _=
-aO.X/aQ
+local aV=aN.Y/aQ
+local aW=aO.X/aQ
 local aX=aO.Y/aQ
 
 local aY=aV+(aX/2)
@@ -1301,8 +1301,8 @@ as:CaptureFocus()
 
 local aO=ao.AbsoluteSize
 local aP=F.AbsoluteSize
-local aQ=_.Scale local _=
-ao.AnchorPoint
+local aQ=_.Scale
+local aR=ao.AnchorPoint
 
 local aS=at*aQ
 
@@ -1554,8 +1554,8 @@ end
 
 local am
 
-
-
+local an={"W","A","S","D","Tab","Slash","Backspace","Escape","Unknown"}
+local ao={"MouseButton1","MouseButton2","MouseButton3"}
 
 local ap=H({"number","string","nil","boolean","table"},true)local aq=function(
 
@@ -1716,7 +1716,7 @@ local av=ar.Debounce or ar.Cooldown
 local aw=S[self]
 local ax,ay,az=ai(self,as,at,UDim2.new(1,-20,0,0))
 
-z("ImageLabel",ax,{
+local aA=z("ImageLabel",ax,{
 Size=UDim2.new(0,14,0,14),
 Position=UDim2.new(1,-10,0.5),
 AnchorPoint=Vector2.new(1,0.5),
@@ -2124,7 +2124,7 @@ Size=UDim2.fromScale(1,0.28),
 BackgroundTransparency=1
 })
 
-z("TextLabel",aB,{
+local aE=z("TextLabel",aB,{
 Position=UDim2.fromOffset(5,0),
 Size=UDim2.new(1,0,0,15),
 TextColor3=Color3.fromRGB(40,150,255),
@@ -2139,7 +2139,7 @@ Font="Font.Medium"
 }
 })
 
-z("ImageLabel",aC,{
+local aF=z("ImageLabel",aC,{
 Size=UDim2.fromOffset(33,33),
 Position=UDim2.new(0,10,0.28,0),
 AnchorPoint=Vector2.new(0,0.5),
@@ -2339,9 +2339,9 @@ assert(type(ar)=="string",`"Tab.AddParagraph[param 1]". 'string' expected, got {
 
 if as~=nil and type(as)~="string"then
 error(`"Tab.AddParagraph[param 2]". 'string', or 'nil' expected, got {typeof(as)}`,2)
-end local _=
+end
 
-S[self]
+local at=S[self]
 local au,av,aw=ai(self,ar,as,UDim2.new(1,0,0,0))
 
 return setmetatable({
@@ -3596,9 +3596,9 @@ end
 
 local af=(function()
 local af=ae.ScriptFolder
-local ag=false local
+local ag=false
 
-ah, ai=pcall(function()
+local ah,ai=pcall(function()
 return af and f:JSONDecode(readfile(`{af}/LibrarySettings.json`))
 end)
 
@@ -3631,9 +3631,9 @@ end)()
 
 local ag=(function()
 local ag=ae.ScriptFolder
-local ah=false local
+local ah=false
 
-ai, aj=pcall(function()
+local ai,aj=pcall(function()
 return ag and f:JSONDecode(readfile(`{ag}/ScriptFlags.json`))
 end)
 
@@ -3724,8 +3724,8 @@ local ah=self.Default.UISize
 if af and type(af.UISize)=="table"then
 local ak,al=unpack(af.UISize)
 
-if type(ak)=="number"and type(al)=="number"then local _=
-F.AbsoluteSize
+if type(ak)=="number"and type(al)=="number"then
+local am=F.AbsoluteSize
 ak=math.clamp(ak,430,1000)
 al=math.clamp(al,200,500)
 ah=UDim2.fromOffset(ak,al)
@@ -3942,7 +3942,7 @@ as.SetUIScale=self.SetUIScale
 as.SUBTITLE_LABEL=ao.SubTitle
 as.TITLE_LABEL=ao
 
-as:StartWindow{
+local aB=as:StartWindow{
 Resizers={aw,ax},
 MinimizeButton=aq,
 Dropdowns=am,
